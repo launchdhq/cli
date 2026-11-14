@@ -1,6 +1,6 @@
-# launchd-cli
+# cli
 
-The `golaunchd` command: `login`, `logout`, `deploy` and `mcp`. Plan: Task 19 in `~/Documents/src/plans/launchd/week1-demo/plan.md`.
+The `golaunchd` command: `login`, `logout`, `deploy` and `mcp`. Plan: Task 19 in `~/Documents/src/plans/launchdhq/week1-demo/plan.md`.
 
 The command is not called `launchd`, because macOS has its own `/sbin/launchd`, and `/sbin` comes before `~/.local/bin` in the `PATH`.
 

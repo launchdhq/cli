@@ -1,4 +1,4 @@
-# launchd-cli
+# cli
 
 ## Pull requests
 
