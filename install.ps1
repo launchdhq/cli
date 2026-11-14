@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $dir = Join-Path $env:LOCALAPPDATA 'Programs\golaunchd'
 New-Item -ItemType Directory -Force -Path $dir | Out-Null
 $exe = Join-Path $dir 'golaunchd.exe'
-Invoke-WebRequest -UseBasicParsing 'https://github.com/waywho/launchd-cli/releases/latest/download/golaunchd-windows-amd64.exe' -OutFile $exe
+Invoke-WebRequest -UseBasicParsing 'https://github.com/launchdhq/cli/releases/latest/download/golaunchd-windows-amd64.exe' -OutFile $exe
 
 $path = [Environment]::GetEnvironmentVariable('Path', 'User')
 if (($path -split ';') -notcontains $dir) {

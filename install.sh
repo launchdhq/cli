@@ -15,7 +15,7 @@ esac
 
 dir="$HOME/.local/bin"
 mkdir -p "$dir"
-curl -fsSL "${GOLAUNCHD_DOWNLOAD_URL:-https://github.com/waywho/launchd-cli/releases/latest/download/golaunchd-$os-$arch}" -o "$dir/golaunchd"
+curl -fsSL "${GOLAUNCHD_DOWNLOAD_URL:-https://github.com/launchdhq/cli/releases/latest/download/golaunchd-$os-$arch}" -o "$dir/golaunchd"
 chmod +x "$dir/golaunchd"
 
 add_path_line() {

@@ -1,4 +1,4 @@
-module github.com/waywho/launchd-cli
+module github.com/launchdhq/cli
 
 go 1.27.3
 
