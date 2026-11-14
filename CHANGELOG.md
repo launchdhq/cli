@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- The install URLs and the Go module path use `launchdhq/cli`. The old `waywho/launchd-cli` URLs still redirect.
 
 ## [0.2.5] - 2026-11-08
 ### Changed
