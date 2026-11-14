@@ -8,12 +8,12 @@ The command is not called `launchd`, because macOS has its own `/sbin/launchd`, 
 
 The install scripts download the newest binary from the GitHub releases of this repo.
 
-- macOS and Linux: `curl -fsSL https://github.com/waywho/launchd-cli/releases/latest/download/install.sh | sh`. It puts `golaunchd` in `~/.local/bin`. The user does no manual step:
+- macOS and Linux: `curl -fsSL https://github.com/launchdhq/cli/releases/latest/download/install.sh | sh`. It puts `golaunchd` in `~/.local/bin`. The user does no manual step:
   - When the user can write to `/usr/local/bin`, the script adds a link to `golaunchd` there.
   - Else it adds `export PATH="$HOME/.local/bin:$PATH"` to `~/.zshenv`. On Linux, it also adds the line to `~/.profile` and `~/.bashrc` when they exist. It adds the line only once and never uses `sudo`.
   - Then it checks that a new `zsh -c` (or `sh -c`) finds `golaunchd`, and prints the next step.
-- Windows (PowerShell): `irm https://github.com/waywho/launchd-cli/releases/latest/download/install.ps1 | iex`. It puts `golaunchd.exe` in `%LOCALAPPDATA%\Programs\golaunchd` and adds that folder to the user `Path`. Then it checks that a new PowerShell process finds `golaunchd`, and prints the next step.
-- Claude desktop on macOS: download https://github.com/waywho/launchd-cli/releases/latest/download/launchd-darwin.mcpb and open the file. Claude desktop installs the extension. Then tell Claude in a chat: put my app on Launchd. On Windows, the file is `launchd-windows.mcpb`.
+- Windows (PowerShell): `irm https://github.com/launchdhq/cli/releases/latest/download/install.ps1 | iex`. It puts `golaunchd.exe` in `%LOCALAPPDATA%\Programs\golaunchd` and adds that folder to the user `Path`. Then it checks that a new PowerShell process finds `golaunchd`, and prints the next step.
+- Claude desktop on macOS: download https://github.com/launchdhq/cli/releases/latest/download/launchd-darwin.mcpb and open the file. Claude desktop installs the extension. Then tell Claude in a chat: put my app on Launchd. On Windows, the file is `launchd-windows.mcpb`.
 
 ## Release
 

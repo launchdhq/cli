@@ -11,13 +11,13 @@
     "url": "https://launchd.eu"
   },
   "homepage": "https://launchd.eu",
-  "documentation": "https://github.com/waywho/launchd-cli#readme",
+  "documentation": "https://github.com/launchdhq/cli#readme",
   "support": "mailto:info@launchd.eu",
   "privacy_policies": ["https://launchd.eu/privacy"],
   "keywords": ["deploy", "hosting", "apps", "launchd"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/waywho/launchd-cli"
+    "url": "https://github.com/launchdhq/cli"
   },
   "server": {
     "type": "binary",
