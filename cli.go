@@ -42,7 +42,7 @@ Run these commands in a terminal:
 
 ` + "`golaunchd deploy`" + ` sends the values in ` + "`.env`" + ` as secrets, and never pushes the ` + "`.env`" + ` file.
 When the deploy fails, it prints "Deploy failed" and the reason: the last lines of the build log, or why the app does not start.
-Invites and secrets are on https://launchd.eu/apps.
+Invites and secrets are on https://hub.launchd.eu/apps.
 Keep SQLite files and uploaded files in the folder in ` + "`$DATA_DIR`" + `. Files in other folders are lost on each deploy.
 If the Dockerfile sets a non-root USER, the Dockerfile must create /data and give it to that user.
 `
