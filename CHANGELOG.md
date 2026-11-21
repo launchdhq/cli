@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - The install URLs and the Go module path use `launchdhq/cli`. The old `waywho/launchd-cli` URLs still redirect.
 - The README and `AGENTS.md` titles say `cli`, and the README plan link points to `plans/launchdhq`.
+- The app page links point to `https://hub.launchd.eu/apps`.
 
 ## [0.2.5] - 2026-11-08
 ### Changed
