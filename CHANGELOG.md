@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The install URLs and the Go module path use `launchdhq/cli`. The old `waywho/launchd-cli` URLs still redirect.
 - The README and `AGENTS.md` titles say `cli`, and the README plan link points to `plans/launchdhq`.
 - The app page links point to `https://hub.launchd.eu/apps`.
+- A non-2xx answer with a JSON `error` shows that text, not "Launchd answered 403 Forbidden to GET ... Try again."
+- The change is in `request` (`cli.go`), so it applies to every endpoint, not only `/api/apps/available`. 401 and 404 and a body with no `error` keep their old messages.
 
 ## [0.2.5] - 2026-11-08
 ### Changed
