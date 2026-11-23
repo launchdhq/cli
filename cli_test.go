@@ -22,19 +22,20 @@ import (
 const launchdToken = "lt-123"
 
 type fakeAPI struct {
-	t             *testing.T
-	srv           *httptest.Server
-	challenge     string
-	taken         map[string]bool
-	statuses      []string
-	logTail       string
-	secrets       map[string]string
-	onSecrets     func()
-	tokenDeleted  bool
-	availableAsks []string
-	callbacks     chan *http.Response
-	authorizeURL  string
-	skill         string
+	t                *testing.T
+	srv              *httptest.Server
+	challenge        string
+	taken            map[string]bool
+	statuses         []string
+	logTail          string
+	secrets          map[string]string
+	onSecrets        func()
+	tokenDeleted     bool
+	availableAsks    []string
+	availableRefusal func(w http.ResponseWriter)
+	callbacks        chan *http.Response
+	authorizeURL     string
+	skill            string
 }
 
 func newFakeAPI(t *testing.T) *fakeAPI {
@@ -69,6 +70,10 @@ func newFakeAPI(t *testing.T) *fakeAPI {
 	mux.HandleFunc("GET /api/apps/available", authed(func(w http.ResponseWriter, r *http.Request) {
 		name := r.URL.Query().Get("name")
 		f.availableAsks = append(f.availableAsks, name)
+		if f.availableRefusal != nil {
+			f.availableRefusal(w)
+			return
+		}
 		json.NewEncoder(w).Encode(map[string]any{"host": name + "-tally.apps.golaunchd.eu", "available": !f.taken[name]})
 	}))
 	mux.HandleFunc("GET /api/env-rules", authed(func(w http.ResponseWriter, r *http.Request) {
@@ -591,6 +596,36 @@ func TestDeployWithoutTerminalNamesTheNameFlag(t *testing.T) {
 	}
 	if files := env.pushedFiles(t, "crm"); len(files) != 0 {
 		t.Errorf("pushed %v", files)
+	}
+}
+
+func TestDeployPrintsTheErrorTextThatLaunchdGivesForARefusedName(t *testing.T) {
+	env := newDeployEnv(t, "crm")
+	env.api.availableRefusal = func(w http.ResponseWriter) {
+		w.WriteHeader(http.StatusForbidden)
+		json.NewEncoder(w).Encode(map[string]string{"error": "You have an app. A builder can have one app."})
+	}
+	writeFiles(t, env.appDir, map[string]string{"app.rb": "puts 1"})
+
+	err := env.cli.Deploy("crm", true)
+
+	if err == nil || err.Error() != "You have an app. A builder can have one app." {
+		t.Fatalf("got %v", err)
+	}
+}
+
+func TestDeployKeepsTheGenericErrorWhenTheAnswerHasNoErrorText(t *testing.T) {
+	env := newDeployEnv(t, "crm")
+	env.api.availableRefusal = func(w http.ResponseWriter) {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte("Forbidden"))
+	}
+	writeFiles(t, env.appDir, map[string]string{"app.rb": "puts 1"})
+
+	err := env.cli.Deploy("crm", true)
+
+	if err == nil || !strings.Contains(err.Error(), "Launchd answered 403 Forbidden to GET /api/apps/available") {
+		t.Fatalf("got %v", err)
 	}
 }
 
