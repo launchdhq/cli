@@ -452,6 +452,12 @@ func (c *CLI) request(method, path, token string, body, out any) (int, error) {
 	case response.StatusCode == http.StatusNotFound:
 		return response.StatusCode, fmt.Errorf("Launchd answered %s to %s %s: %w", response.Status, method, path, errNotFound)
 	case response.StatusCode >= 300:
+		var refusal struct {
+			Error string `json:"error"`
+		}
+		if json.NewDecoder(response.Body).Decode(&refusal) == nil && refusal.Error != "" {
+			return response.StatusCode, errors.New(refusal.Error)
+		}
 		return response.StatusCode, fmt.Errorf("Launchd answered %s to %s %s. Try again.", response.Status, method, path)
 	}
 	if out != nil {
